@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,16 +35,21 @@ public class Usuario {
     @Column(name="data_de_nascimento")
     private LocalDate dataNascimento;
 
+    @ManyToOne
+    @JoinColumn(name="endereco_id")
+    private Endereco endereco;
+
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nomeCompleto, String email, String senha, Integer cpf, LocalDate dataNascimento) {
-        this.id = id;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.senha = senha;
+    public Usuario(Integer cpf, LocalDate dataNascimento, String email, Endereco endereco, Integer id, String nomeCompleto, String senha) {
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
+        this.email = email;
+        this.endereco = endereco;
+        this.id = id;
+        this.nomeCompleto = nomeCompleto;
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -91,6 +98,14 @@ public class Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     
